@@ -34,12 +34,12 @@ public class Main {
             switch (choice) {
                 case 1:
                 Kandang nomorKandang = new Kandang(currentKandangNumber++);
-                System.out.print("Enter Horse Name: ");
+                System.out.print("Nama Kuda: ");
                 scanner.nextLine(); // Consuming newline after entering a number
                 String name = scanner.nextLine();
-                System.out.print("Enter Horse Age: ");
+                System.out.print("Umur Kuda: ");
                 int age = scanner.nextInt();
-                System.out.print("Enter Horse Gender: ");
+                System.out.print("Gender Kuda: ");
                 scanner.nextLine(); // Consuming newline after entering a number
                 String gender = scanner.nextLine();
             
@@ -57,7 +57,7 @@ public class Main {
                 break;
             
                 case 2:
-                    System.out.println("List of Horses:");
+                    System.out.println("Koleksi Kuda:");
                     horseList.displayHorses();
                     break;
                 case 3:
@@ -69,14 +69,14 @@ public class Main {
                     horseList.displayHorses(); // Menampilkan daftar kuda yang sudah diurutkan
                     break;
                    case 4:
-                   System.out.print("Enter Horse Name to Search: ");
-                   scanner.nextLine(); // Membersihkan karakter newline yang masih ada di buffer
+                   System.out.print("Masukan Nama Kuda yang di Cari: ");
+                   scanner.nextLine(); 
                    String searchName = scanner.nextLine();
                    Horse foundHorse = HorseSearching.searchHorseByName(horseList, searchName);
                    HorseSearching.displayHorseInfoWithKandang(foundHorse);
                    break;
                 case 5: // Tugas perawatan
-                    System.out.println("Daily Tasks for the Horse Keeper:");
+                    System.out.println("Tugas Peternak:");
 
                     while (horseStack.top != null) {
                         System.out.println(horseStack.top.horse.name);
@@ -84,11 +84,11 @@ public class Main {
                     }
                     break;
                 case 6:
-                    System.out.println("Exiting Program. Goodbye!");
+                    System.out.println("Exit. Goodbye!");
                     scanner.close();
                     System.exit(0);
                 default:
-                    System.out.println("Invalid choice. Please enter a valid option.");
+                    System.out.println("Salaahhhhhh cokkk.");
             }
         }
     }
