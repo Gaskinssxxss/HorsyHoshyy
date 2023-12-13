@@ -2,23 +2,23 @@ package StackAndQueue;
 
 import LinkedList.*;
 
-public class HorseQueue {
-    public NodeHorse front;
-    NodeHorse rear;
+public class KandangQueue {
+    private NodeHorse front;
+    private NodeHorse rear;
 
-    public HorseQueue() {
-        front = rear = null;
-    }
-
-    public void enqueue(Horse horse) {
+    public void enqueue(Horse horse, Kandang nomorKandang) {
         NodeHorse newNode = new NodeHorse(horse);
 
         if (rear == null) {
             front = rear = newNode;
         } else {
             rear.next = newNode;
+            newNode.prev = rear;
             rear = newNode;
         }
+
+        // Assign nomor kandang to the horse
+        horse.setNomorKandang(nomorKandang);
     }
 
     public void dequeue() {
@@ -33,9 +33,10 @@ public class HorseQueue {
         }
     }
 
-    public void insertHorse(Horse horse, int position) {
+    public void insertHorse(Horse horse, Kandang nomorKandang) {
         NodeHorse newNode = new NodeHorse(horse);
-        if (position == 0) {
+        NodeKandang newkandang = new NodeKandang(nomorKandang);
+        if (nomorKandang == null) {
             newNode.next = front;
             front = newNode;
             if (rear == null) {
@@ -44,7 +45,7 @@ public class HorseQueue {
         } else {
             NodeHorse current = front;
             int count = 0;
-            while (current != null && count < position - 1) {
+            while (current != null && count < newkandang.kandang.nomorKandang) {
                 current = current.next;
                 count++;
             }

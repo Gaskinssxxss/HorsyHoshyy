@@ -8,52 +8,59 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         HorseLinkedList horseList = new HorseLinkedList();
-        HorseQueue horseQueue = new HorseQueue();
+        KandangQueue kandangQueue = new KandangQueue();
         HorseStack horseStack = new HorseStack();
+        int currentKandangNumber = 1;
 
         System.out.println("Kuda Kuda Kuda");
 
+        System.out.print("Anda Seorang Peternak Kuda? Anda siap untuk Beternak sampai mati? Jika ya, Masukan nickname anda : ");
+        String nickname = scanner.nextLine();
+        System.out.print("Hai Mas " + nickname + " Selamat datang di Horse Stable, tempat terbaik untuk mencari makna hidup.");
+
         while (true) {
             System.out.println("\nPilih n Choose:");
-            System.out.println("1. Anda Peternak? Masukan Id anda!");
-            System.out.println("2. Ada Kuda Baru? ayo Tambahkan mas!");
-            System.out.println("3. Daftar Kuda");
-            System.out.println("4. Urutkan Kuda");
-            System.out.println("5. Cari Kuda");
-            System.out.println("6. Tugas Peternak");
-            System.out.println("7. Exit");
+            System.out.println("1. Ada Kuda Baru? ayo Tambahkan mas!");
+            System.out.println("2. Daftar Kuda");
+            System.out.println("3. Urutkan Kuda");
+            System.out.println("4. Cari Kuda");
+            System.out.println("5. Tugas Peternak");
+            System.out.println("6. Exit");
 
+            System.out.print("Experimental gate has opened, silahkan bersenang-senang : " );
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Membuang karakter newline dari input sebelumnya
+            System.out.println("");
 
             switch (choice) {
                 case 1:
-                    System.out.print("Masukan Nama Peternak : ");
-                    String nama = scanner.nextLine();
-                    Peternak newPeternak = new Peternak(nama, nama, choice);
-                    System.out.println("Hai " + newPeternak.getNama()
-                            + " selamat datang peternak sukses, ayo berternak hingga mati!!!");
-                    System.out.print("");
-                    break;
+                Kandang nomorKandang = new Kandang(currentKandangNumber++);
+                System.out.print("Enter Horse Name: ");
+                scanner.nextLine(); // Consuming newline after entering a number
+                String name = scanner.nextLine();
+                System.out.print("Enter Horse Age: ");
+                int age = scanner.nextInt();
+                System.out.print("Enter Horse Gender: ");
+                scanner.nextLine(); // Consuming newline after entering a number
+                String gender = scanner.nextLine();
+            
+                // Create a new Horse
+                Horse newHorse = new Horse(name, age, gender, nomorKandang);
+            
+                horseList.addHorse(name, age, gender, nomorKandang);
+                System.out.println("Kuda " + name + " Umur " + age + " Jenis Kelamin " + gender + " kandang nomor - " + nomorKandang.getNomor());
+            
+                // Enqueue the horse into the KandangQueue
+                kandangQueue.enqueue(newHorse, nomorKandang);
+            
+                // Push the horse into the HorseStack
+                horseStack.push(newHorse);
+                break;
+            
                 case 2:
-                    System.out.print("Enter Horse Name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Enter Horse Age: ");
-                    int age = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Enter Horse Gender: ");
-                    String gender = scanner.nextLine();
-                    Horse newHorse = new Horse(name, age, gender);
-
-                    // Memasukkan kuda ke dalam antrian pada posisi tertentu (misalnya, posisi 1)
-                    horseQueue.insertHorse(newHorse, 1);
-                    System.out.println("Horse added to the queue at position 2.");
-                    break;
-                case 3:
                     System.out.println("List of Horses:");
                     horseList.displayHorses();
                     break;
-                case 4:
+                case 3:
                     System.out.println("Urutan Kuda");
                     // Hapus input string, karena kriteria sorting sudah ditentukan (berdasarkan
                     // umur)
@@ -61,19 +68,14 @@ public class Main {
                     System.out.println("Daftar kuda telah diurutkan berdasarkan umur.");
                     horseList.displayHorses(); // Menampilkan daftar kuda yang sudah diurutkan
                     break;
-                case 5:
-                    System.out.print("Enter Horse Name to Search: ");
-                    String searchName = scanner.nextLine();
-                    Horse foundHorse = HorseSearching.searchHorseByName(horseList, searchName);
-
-                    if (foundHorse != null) {
-                        System.out.println("Horse Found - Name: " + foundHorse.name + ", Age: " + foundHorse.age
-                                + ", Gender: " + foundHorse.gender);
-                    } else {
-                        System.out.println("Horse with name " + searchName + " not found.");
-                    }
-                    break;
-                case 6: // Tugas perawatan
+                   case 4:
+                   System.out.print("Enter Horse Name to Search: ");
+                   scanner.nextLine(); // Membersihkan karakter newline yang masih ada di buffer
+                   String searchName = scanner.nextLine();
+                   Horse foundHorse = HorseSearching.searchHorseByName(horseList, searchName);
+                   HorseSearching.displayHorseInfoWithKandang(foundHorse);
+                   break;
+                case 5: // Tugas perawatan
                     System.out.println("Daily Tasks for the Horse Keeper:");
 
                     while (horseStack.top != null) {
@@ -81,7 +83,7 @@ public class Main {
                         horseStack.pop();
                     }
                     break;
-                case 7:
+                case 6:
                     System.out.println("Exiting Program. Goodbye!");
                     scanner.close();
                     System.exit(0);

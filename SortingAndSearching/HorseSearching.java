@@ -13,4 +13,15 @@ public class HorseSearching {
         }
         return null;
     }
+
+    public static void displayHorseInfoWithKandang(Horse horse) {
+        if (horse != null) {
+            System.out.println("Name: " + horse.name +
+                    ", Age: " + horse.age +
+                    ", Gender: " + horse.gender +
+                    ", Nomor Kandang: " + horse.getNomorKandang());
+        } else {
+            System.out.println("Horse not found.");
+        }
+    }
 }

@@ -4,11 +4,13 @@ public class Horse {
     public String name;
     public int age;
     public String gender;
+    Kandang nomorKandang;
 
-    public Horse(String name, int age, String gender) {
+    public Horse(String name, int age, String gender, Kandang nomorKandang) {
         this.name = name;
         this.age = age;
         this.gender = gender;
+        this.nomorKandang = nomorKandang;
     }
 
     public void setName(String name) {
@@ -34,10 +36,18 @@ public class Horse {
     public String getGender() {
         return gender;
     }
+    
+    public void setNomorKandang(Kandang nomorKandang) {
+        this.nomorKandang = nomorKandang;
+    }
+    
+
+    public int getNomorKandang() {
+        return nomorKandang.getNomor();
+    }
 
     public Horse(Horse horse) {
-        System.err.println(
-                "Nama Kuda" + horse.getName() + "Umur Kuda" + horse.getAge() + " Gender Kuda" + horse.getGender());
+        System.err.println("Suksess suksesss!!!");
     }
 
 }
